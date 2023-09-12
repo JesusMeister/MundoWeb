@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Grid, Tab, Tabs } from "@mui/material";
 import "./PokemonInfo.css";
 import React from "react";
 import { Pokemon } from "../../models/Pokemon";
@@ -29,42 +29,53 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 interface PokemonInfoProps {
-    pokemon:Pokemon
+    pokemon: Pokemon
 }
 
-function PokemonInfo(props:PokemonInfoProps) {
+function PokemonInfo(props: PokemonInfoProps) {
     const [value, setValue] = React.useState(0);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+    // borderBottom: 1, borderColor: 'divider'
     return (
-        <div>
-            <h1 className="Name">{props.pokemon.name}</h1>
-            <img className="Image" src={props.pokemon.sprites.other["official-artwork"].front_default}></img>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab style={{color:"white"}} label="Moves" />
-                    <Tab style={{color:"white"}} label="Abilities" />
-                </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-                <div style={{color:"white"}}>
-                    <ul>
-                        {props.pokemon.moves.map((move,index)=>{
-                            return <li key={index}>{move.move.name}</li>
-                        })}
-                    </ul>
-                </div>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                <div style={{color:"white"}}>
-                    <ul>
-                        {props.pokemon.abilities.map((ability,index)=>{
-                            return <li key={index}>{ability.ability.name}</li>
-                        })}
-                    </ul>
-                </div>
-            </CustomTabPanel>
+        <div className="TVFrame">
+            <div className="TV">
+                <Grid container>
+                    <Grid item xs={6}>
+                        <h1 className="Name">{props.pokemon.name}</h1>
+                        <img className="Image" src={props.pokemon.sprites.other["official-artwork"].front_default} alt={props.pokemon.name + " image"}></img>
+                    </Grid>
+                    <Grid container xs={6}>
+                        <Grid item xs={12}>
+                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                <Tab style={{ color: "white" }} label="Moves" />
+                                <Tab style={{ color: "white" }} label="Abilities" />
+                            </Tabs>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <CustomTabPanel value={value} index={0}>
+                                <div className="Info">
+                                    <ul>
+                                        {props.pokemon.moves.map((move, index) => {
+                                            return <li key={index}>{move.move.name}</li>
+                                        })}
+                                    </ul>
+                                </div>
+                            </CustomTabPanel>
+                            <CustomTabPanel value={value} index={1}>
+                                <div className="Info">
+                                    <ul>
+                                        {props.pokemon.abilities.map((ability, index) => {
+                                            return <li key={index}>{ability.ability.name}</li>
+                                        })}
+                                    </ul>
+                                </div>
+                            </CustomTabPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
         </div>
     )
 }
