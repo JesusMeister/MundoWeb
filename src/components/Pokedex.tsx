@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Pokedex() {
-    const columnSize = 6;
+    const columnSize =5;
     const [pokemonId,setPokemonId]=useState(0);
     const [pokemon,setPokemon]=useState<Pokemon|null>(null);
     function selectPokemonId(id:number){
@@ -29,13 +29,13 @@ function Pokedex() {
     return (
         <div className="Pokedex">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid item xs={columnSize} className="Busqueda">
-                    <Busqueda searchPokemon={getPokemon} changePokemonId={selectPokemonId}></Busqueda>
-                </Grid>
                 <Grid item xs={columnSize} className="Resultado">
                     {pokemon&&
                         <PokemonInfo pokemon={pokemon}></PokemonInfo>
                     }
+                </Grid>
+                <Grid item xs={columnSize} className="Busqueda">
+                    <Busqueda searchPokemon={getPokemon} changePokemonId={selectPokemonId}></Busqueda>
                 </Grid>
             </Grid>
         </div>
