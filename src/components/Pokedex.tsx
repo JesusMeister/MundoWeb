@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Pokedex() {
-    const columnSize =5;
+    const columnSize = 6;
     const [pokemonId,setPokemonId]=useState(0);
     const [pokemon,setPokemon]=useState<Pokemon|null>(null);
     function selectPokemonId(id:number){

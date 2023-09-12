@@ -24,7 +24,7 @@ function Busqueda(props:BusquedaProps){
     function clearBusqueda(){
         setBusqueda("");
     }
-    const columnSize=2.1;
+    const columnSize=1;
     return(
         <div>
             <div style={{paddingTop:"20px"}}>
@@ -33,7 +33,7 @@ function Busqueda(props:BusquedaProps){
                 </div>
             </div>
             <div>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid className='Numbers' container columns={5}>
                 <Grid item xs={columnSize}>
                     <Button className="Button" onClick={()=>addToBusqueda("1")}>1</Button>
                 </Grid>
@@ -70,10 +70,10 @@ function Busqueda(props:BusquedaProps){
             <div>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={6}>
-                    <Button variant="outlined" className="Button" onClick={props.searchPokemon}>Buscar</Button>
+                    <Button variant="outlined" className="Buscar" onClick={props.searchPokemon}>Buscar</Button>
                     </Grid>
                     <Grid item xs={6}>
-                    <Button variant="outlined" className="Button" onClick={clearBusqueda}>Borrar</Button>
+                    <Button variant="outlined" className="Borrar" onClick={clearBusqueda}>Borrar</Button>
                     </Grid>
                 </Grid>
             </div>
