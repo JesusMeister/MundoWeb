@@ -1,8 +1,8 @@
 from fastapi import FastAPI,Depends
 from schema.userschema import User
-from schema.postschema import Post
+from schema.postschema import Post, Project
 from repository import userrepository, postrepository
-from database import SessionLocal, engine
+from database import SessionLocal
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -49,6 +49,7 @@ async def list_users(db: Session = Depends(get_db)):
     users=userrepository.list_users(db)
     return users
 
+
 @app.get("/user/find/{id}",response_model=User)
 async def find_by_id(db:Session=Depends(get_db),id:int=0):
     print(id)
@@ -65,6 +66,11 @@ async def create_post(post:Post, db: Session = Depends(get_db)):
 async def list_posts(db: Session = Depends(get_db)):
     posts=postrepository.list_posts(db)
     return posts
+
+@app.get("/project/list", response_model=list[Project])
+async def list_projects(db:Session=Depends(get_db)):
+    projects=postrepository.list_projects(db)
+    return projects
 
 @app.get("/post/find-by-project/{project}",response_model=list[Post])
 async def find_by_project(db:Session=Depends(get_db),project:str=""):
@@ -85,3 +91,8 @@ async def change_status(db:Session=Depends(get_db),title:str=""):
     print(title)
     post=postrepository.change_status(db,title)
     print(post)
+
+@app.post("/post/update/{id}",response_model=Post)
+async def update_task(post: Post, db: Session=Depends(get_db)):
+    post=postrepository.update_task(db, post)
+    return post
