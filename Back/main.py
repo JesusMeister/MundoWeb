@@ -1,7 +1,6 @@
 from fastapi import FastAPI,Depends
-from schema.userschema import User
 from schema.postschema import Post, Project
-from repository import userrepository, postrepository
+from repository import postrepository
 from database import SessionLocal
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
