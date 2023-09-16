@@ -5,7 +5,7 @@ from database import Base
 class Post(Base):
     __tablename__ = "post"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     title = Column(String)
     content = Column(String)
     project = Column(String)

@@ -4,9 +4,9 @@ import sqlalchemy
 from model import postmodel
 from schema import postschema
 
-
 def create_post(db: Session, post: postschema.Post):
     db_post = postmodel.Post(
+        id=None,
         title=post.title,
         content=post.content,
         project=post.project,
@@ -42,6 +42,11 @@ def delete_project(db: Session, project: str):
     db.commit()
     return posts
 
+def delete_task(db: Session, id: int):
+    post = db.query(postmodel.Post).filter(postmodel.Post.id == id).first()
+    db.delete(post)
+    db.commit()
+    return post
 
 def change_status(db: Session, title: str):
     post = db.query(postmodel.Post).filter(postmodel.Post.title == title).first()
@@ -64,3 +69,7 @@ def update_task(db: Session, post: postschema.Post):
     db.commit()
     db.refresh(db_post)
     return db_post
+
+def find_by_id(db: Session, id: int):
+    post = db.query(postmodel.Post).filter(postmodel.Post.id == id).first()
+    return post

@@ -25,37 +25,6 @@ def get_db():
         yield db
     finally:
         db.close()
-@app.get("/")
-async def hello_world():
-    return {"message":"Hello World"}
-
-
-@app.get("/hello/{name}")
-async def hello_name(name:str):
-    return {"message":f"Hello {name}"}
-
-
-@app.post("/hello-post")
-async def hello_name(user:User):
-    return {"message":f"Hello {user.name}"}
-
-@app.post("/user/create",response_model=User)
-async def create_user(user:User, db: Session = Depends(get_db)):
-    user=userrepository.create_user(db,user)
-    return user
-
-@app.get("/user/list",response_model=list[User])
-async def list_users(db: Session = Depends(get_db)):
-    users=userrepository.list_users(db)
-    return users
-
-
-@app.get("/user/find/{id}",response_model=User)
-async def find_by_id(db:Session=Depends(get_db),id:int=0):
-    print(id)
-    user=userrepository.find_by_id(db,id)
-    print(user)
-    return user
 
 @app.post("/post/create",response_model=Post)
 async def create_post(post:Post, db: Session = Depends(get_db)):
@@ -79,10 +48,23 @@ async def find_by_project(db:Session=Depends(get_db),project:str=""):
     print(post)
     return post
 
+@app.get("/post/find-by-id/{id}",response_model=Post)
+async def find_by_id(db:Session=Depends(get_db),id:int=0):
+    print(id)
+    post=postrepository.find_by_id(db,id)
+    print(post)
+    return post
+
 @app.delete("/post/delete-by-project/{project}")
 async def delete_by_project(db:Session=Depends(get_db),project:str=""):
     print(project)
     post=postrepository.delete_project(db,project)
+    print(post)
+
+@app.delete("/post/delete/{id}")
+async def delete_task(db:Session=Depends(get_db),id:int=0):
+    print(id)
+    post=postrepository.delete_task(db,id)
     print(post)
 
 
